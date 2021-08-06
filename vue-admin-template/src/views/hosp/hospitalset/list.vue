@@ -70,7 +70,7 @@
 
 <script>
 
-import hospitalset from "@/api/hospitalset"
+import hospitalset from "@/api/hospital/hospitalset";
 
 export default {
   name: "list",

@@ -69,21 +69,38 @@ export const constantRouterMap = [
       {
         path: 'list',
         name: '医院设置列表',
-        component: () => import('@/views/hospitalset/list'),
+        component: () => import('@/views/hosp/hospitalset/list'),
         meta: { title: '医院设置列表', icon: 'table' }
       },
       {
         path: 'add',
         name: '添加医院设置',
-        component: () => import('@/views/hospitalset/add'),
+        component: () => import('@/views/hosp/hospitalset/add'),
         meta: { title: '添加医院设置', icon: 'tree' }
       },
       {
         path: 'update/:id',
         name: '修改医院设置',
-        component: () => import('@/views/hospitalset/add'),
+        component: () => import('@/views/hosp/hospitalset/add'),
         meta: { title: '修改医院设置', icon: 'tree' },
         hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/cmn',
+    component: Layout,
+    redirect: '/cmn/list',
+    name: '数据管理',
+    alwaysShow: true,
+    meta: { title: '数据管理', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: '数据字典',
+        component: () => import('@/views/cmn/dict/list'),
+        meta: { title: '数据字典', icon: 'table' }
       }
     ]
   },
