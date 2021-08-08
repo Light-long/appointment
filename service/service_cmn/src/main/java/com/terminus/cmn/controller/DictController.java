@@ -41,4 +41,24 @@ public class DictController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "根据dict_value获取dict_name")
+    @GetMapping("/getName/{value}")
+    public String getNameByValue(@PathVariable(value = "value") String value) {
+        return dictService.getNameByValue(value);
+    }
+
+    @ApiOperation(value = "根据dict_code和value获取dict_name")
+    @GetMapping("/getName/{dictCode}/{value}")
+    public String getNameByDictCodeAndValue(@PathVariable(value = "dictCode") String dictCode,
+                                            @PathVariable(value = "value") String value) {
+        return dictService.getNameByDictCodeAndValue(dictCode, value);
+    }
+
+    @ApiOperation(value = "根据dictCode获取子集合")
+    @GetMapping("/getChildByDictCode/{dictCode}")
+    public Result getChildByDictCode(@PathVariable(value = "dictCode") String dictCode) {
+        List<Dict> dictList = dictService.getChildByDictCode(dictCode);
+        return Result.ok(dictList);
+    }
+
 }

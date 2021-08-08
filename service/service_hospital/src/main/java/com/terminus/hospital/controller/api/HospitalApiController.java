@@ -28,7 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/hosp")
 @Api(description = "医院管理API接口")
-public class HospitalController {
+public class HospitalApiController {
 
     @Resource
     private HospitalService hospitalService;

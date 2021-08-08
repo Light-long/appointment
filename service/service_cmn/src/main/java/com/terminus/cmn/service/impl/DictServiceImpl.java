@@ -8,6 +8,7 @@ import com.terminus.cmn.mapper.DictMapper;
 import com.terminus.cmn.service.DictService;
 import com.terminus.model.model.cmn.Dict;
 import com.terminus.model.vo.cmn.DictEeVo;
+import com.terminus.serviceutil.exception.AppointmentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
@@ -109,4 +110,44 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
             e.printStackTrace();
         }
     }
+
+    /**
+     * @param value dict_value
+     * @return dict_name
+     */
+    @Override
+    public String getNameByValue(String value) {
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.eq("value", value);
+        Integer count = dictMapper.selectCount(wrapper);
+        if (count == 1) {
+            return dictMapper.selectOne(wrapper).getName();
+        } else {
+            throw new AppointmentException("查询错误，请检验参数", 404);
+        }
+    }
+
+    @Override
+    public String getNameByDictCodeAndValue(String dictCode, String value) {
+        // 首先根据dictCode查询parent_id
+        Long parentId = getParentDict(dictCode).getId();
+        // 根据父类id和value获取name
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id", parentId);
+        wrapper.eq("value", value);
+        return dictMapper.selectOne(wrapper).getName();
+    }
+
+    @Override
+    public List<Dict> getChildByDictCode(String dictCode) {
+        Dict dict = dictMapper.selectOne(new QueryWrapper<Dict>().eq("dict_code", dictCode));
+        return this.findChildData(dict.getId());
+    }
+
+    private Dict getParentDict(String dictCode) {
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.eq("dict_code", dictCode);
+        return dictMapper.selectOne(wrapper);
+    }
+
 }
