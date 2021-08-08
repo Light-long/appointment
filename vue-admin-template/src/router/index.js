@@ -97,6 +97,13 @@ export const constantRouterMap = [
         component: () => import('@/views/hosp/hospital/show'),
         meta: { title: '医院详细信息', icon: 'tree' },
         hidden: true
+      },
+      {
+        path: 'hospital/schedule/:hoscode',
+        name: '排班',
+        component: () => import('@/views/hosp/hospital/schedule'),
+        meta: { title: '排班', noCache: true },
+        hidden: true
       }
     ]
   },
