@@ -1,11 +1,13 @@
 package com.terminus.hospital.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.terminus.commonutil.result.ResultCodeEnum;
 import com.terminus.hospital.repository.DepartmentRepository;
 import com.terminus.hospital.service.DepartmentService;
 import com.terminus.model.model.hosp.Department;
 import com.terminus.model.vo.hosp.DepartmentQueryVo;
 import com.terminus.model.vo.hosp.DepartmentVo;
+import com.terminus.serviceutil.exception.AppointmentException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -115,5 +117,14 @@ public class DepartmentServiceImpl implements DepartmentService {
             result.add(departmentVo);
         }
         return result;
+    }
+
+    @Override
+    public String getDepartmentName(String hoscode, String depcode) {
+        Department department = departmentRepository.getDepartmentByHoscodeAndDepcode(hoscode, depcode);
+        if (department != null) {
+            return department.getDepname();
+        }
+        throw new AppointmentException("hoscode和depcode错误", 404);
     }
 }

@@ -4,6 +4,7 @@ import com.terminus.model.model.hosp.Schedule;
 import com.terminus.model.vo.hosp.ScheduleQueryVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ScheduleService {
@@ -19,4 +20,11 @@ public interface ScheduleService {
     Page<Schedule> selectPage(Integer page, Integer limit, ScheduleQueryVo scheduleQueryVo);
 
     void remove(String hoscode, String hosScheduleId);
+
+    /**
+     * 根据医院编号 科室编号 获取 排班信息
+     */
+    Map<String, Object> getScheduleByHoscodeAndDepcode(Integer page, Integer limit, String hoscode, String depcode);
+
+    List<Schedule> getSchduleDetail(String hoscode, String depcode, String workDate);
 }

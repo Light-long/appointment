@@ -34,4 +34,6 @@ public interface DepartmentService {
      * 查询科室编号（树形）
      */
     List<DepartmentVo> getDetailTree(String hoscode);
+
+    String getDepartmentName(String hoscode, String depcode);
 }
