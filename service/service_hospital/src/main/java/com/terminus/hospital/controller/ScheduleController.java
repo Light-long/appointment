@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
 @Slf4j
 @Api(description = "排班信息管理")
 @RequestMapping("/admin/hospital/schedule")

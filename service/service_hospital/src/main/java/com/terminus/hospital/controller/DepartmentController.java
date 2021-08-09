@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @Slf4j
 @RequestMapping("/admin/hospital/department")
 @Api(description = "科室管理")

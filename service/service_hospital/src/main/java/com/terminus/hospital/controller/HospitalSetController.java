@@ -21,7 +21,6 @@ import java.util.Random;
 @RequestMapping("/admin/hospital/hospitalSet")
 @RequiredArgsConstructor
 @Api(description = "医院设置管理")
-@CrossOrigin
 public class HospitalSetController {
 
     private final HospitalSetService hospitalSetService;

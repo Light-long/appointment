@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/admin/hospital/hospital")
 @Slf4j
 @Api(description = "医院管理接口")

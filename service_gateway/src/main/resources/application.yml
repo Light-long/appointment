@@ -1,0 +1,25 @@
+server:
+  port: 80
+spring:
+  application:
+    name: service_gateway
+  cloud:
+    nacos:
+      discovery:
+        # nacos 服务地址
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          # 使用服务发现路由
+          enabled: true
+      routes:
+        - id: service-hospital
+          uri: lb://service-hospital
+          predicates:
+            - Path=/*/hospital/**
+        - id: service-cmn
+          uri: lb://service-cmn
+          predicates:
+              - Path=/*/cmn/**
+
