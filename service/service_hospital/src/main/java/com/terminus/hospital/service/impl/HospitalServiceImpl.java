@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class HospitalServiceImpl implements HospitalService {
@@ -121,6 +122,28 @@ public class HospitalServiceImpl implements HospitalService {
         // 填充dict信息
         this.convert(hospital);
         return hospital;
+    }
+
+
+    /**
+     * 根据医院名称获取医院列表
+     */
+    @Override
+    public List<Hospital> findByHosname(String hosname) {
+        return hospitalRepository.findByHosname(hosname);
+    }
+
+    /**
+     * 医院预约挂号详情
+     */
+    @Override
+    public Map<String, Object> scheduleDetail(String hoscode) {
+        Map<String, Object> result = new HashMap<>();;
+        Hospital hospital = this.showHospitalDetail(hoscode);
+        result.put("hospital", hospital);
+        result.put("bookingRule", hospital.getBookingRule());
+        hospital.setBookingRule(null);
+        return result;
     }
 
 
