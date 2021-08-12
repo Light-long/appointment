@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.terminus.commonutil.helper.JWTHelper;
 import com.terminus.commonutil.result.ResultCodeEnum;
+import com.terminus.model.enums.AuthStatusEnum;
 import com.terminus.model.model.user.UserInfo;
 import com.terminus.model.vo.user.LoginVo;
+import com.terminus.model.vo.user.UserAuthVo;
 import com.terminus.serviceutil.exception.AppointmentException;
 import com.terminus.user.mapper.UserInfoMapper;
 import com.terminus.user.service.UserInfoService;
@@ -73,5 +75,23 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         String token = JWTHelper.createToken(user.getId(), name);
         result.put("token", token);
         return result;
+    }
+
+    /**
+     * 用户认证
+     */
+    @Override
+    public void userAuth(Long userId, UserAuthVo userAuthVo) {
+        // 查出该用户信息
+        UserInfo userInfo = userInfoMapper.selectById(userId);
+        // 设置认证信息
+        userInfo.setName(userAuthVo.getName());
+        //其他认证信息
+        userInfo.setCertificatesType(userAuthVo.getCertificatesType());
+        userInfo.setCertificatesNo(userAuthVo.getCertificatesNo());
+        userInfo.setCertificatesUrl(userAuthVo.getCertificatesUrl());
+        userInfo.setAuthStatus(AuthStatusEnum.AUTH_RUN.getStatus());
+        // 信息更新
+        userInfoMapper.updateById(userInfo);
     }
 }
